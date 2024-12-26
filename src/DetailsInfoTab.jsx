@@ -17,36 +17,22 @@ function DetailsInfo({
     poAddress,
     prAddress,
     email,
-    sscGroup,
-    sscRollNo,
-    sscBoard,
-    sscPY,
-    sscObMarks,
-    sscTMarks,
-    hsscGroup,
-    hsscRollNo,
-    hsscBoard,
-    hsscPY,
-    hsscObMarks,
-    hsscTMarks,
-    grGroup,
-    grRollNo,
-    grBoard,
-    grPY,
-    grObMarks,
-    grTMarks,
-    otGroup,
-    otRollNo,
-    otBoard,
-    otPY,
-    otObMarks,
-    otTMarks,
+    education,
+    degree,
+    group,
+    board,
+    rollNo,
+    passYear,
+    obMarks,
+    toMarks,
     stfileData
 }){
     function downloadDivAsImage() {
         const resultDiv = document.querySelector('.detail-info-container');
-        let printBtn = document.querySelector('.print-btn');
+        let printBtn = document.querySelector('.print-btn-container');
         printBtn.style.display = 'none';
+        const findWidth = window.innerWidth;
+        window.innerWidth = 1400;
         html2canvas(resultDiv).then(canvas => {
             const image = canvas.toDataURL('image/jpeg');
             const link = document.createElement('a');
@@ -57,7 +43,8 @@ function DetailsInfo({
             link.click();
             document.body.removeChild(link);
         })
-        printBtn.style.display = 'block';
+        printBtn.style.display = 'flex';
+        window.innerWidth = findWidth;
     }
 
     return(
@@ -91,44 +78,28 @@ function DetailsInfo({
             </div>
             <hr />
             <h2>Educational Info</h2>
-            <div className='ed-details'>
+            <div className='ed-details ed-details-out'>
                 <div><strong>Certificates</strong></div>
                 <div><strong>Group</strong></div>
-                <div><strong>Roll No.</strong></div>
                 <div><strong>Board</strong></div>
+                <div><strong>Roll No.</strong></div>
                 <div><strong>Passing Year</strong></div>
                 <div><strong>Obtained Marks</strong></div>
-                <div><strong>Total Marks</strong></div>
-                <div>SSC/Equi.</div>
-                <div>{sscGroup}</div>
-                <div>{sscRollNo}</div>
-                <div>{sscBoard}</div>
-                <div>{sscPY}</div>
-                <div>{sscObMarks}</div>
-                <div>{sscTMarks}</div>
-                <div>HSSC/Equi.</div>
-                <div>{hsscGroup}</div>
-                <div>{hsscRollNo}</div>
-                <div>{hsscBoard}</div>
-                <div>{hsscPY}</div>
-                <div>{hsscObMarks}</div>
-                <div>{hsscTMarks}</div>
-                <div>Graduation/Equi.</div>
-                <div>{grGroup}</div>
-                <div>{grRollNo}</div>
-                <div>{grBoard}</div>
-                <div>{grPY}</div>
-                <div>{grObMarks}</div>
-                <div>{grTMarks}</div>
-                <div>Other</div>
-                <div>{otGroup}</div>
-                <div>{otRollNo}</div>
-                <div>{otBoard}</div>
-                <div>{otPY}</div>
-                <div>{otObMarks}</div>
-                <div>{otTMarks}</div>
+                <div><strong>Total Marks</strong></div>  
+                {education.map((edu, index)=>
+                    <React.Fragment key={index}>
+                        <div>{edu.newDegree}</div>
+                        <div>{edu.newGroup}</div>
+                        <div>{edu.newBoard}</div>
+                        <div>{edu.newRollNo}</div>
+                        <div>{edu.newPassYear}</div>
+                        <div>{edu.newObMarks}</div>
+                        <div>{edu.newToMarks}</div>
+                    </React.Fragment >
+                )}
             </div>
-            <div className='page-navigation-btns'>
+            <div className='page-navigation-btns print-btn-container '>
+                <a href=""><button className='print-btn'>Home Page</button></a>
                 <button className='print-btn' onClick={downloadDivAsImage}>Print </button>
             </div>
         </div>

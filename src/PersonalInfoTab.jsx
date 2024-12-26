@@ -26,19 +26,8 @@ function PersonalInfo({
     email,
     setEmail,
 }){
-    // const [stdName, setStdName] = useState("");
-    // const [stdFName, setStdFName] = useState("");
-    // const [stdCNIC, setStdCNIC] = useState("");
-    // const [gender, setGender] = useState("");
-    // const [dob, setDob] = useState("");
-    // const [province, setProvince] = useState("");
-    // const [domicile, setDomicile] = useState("");
-    // const [city, setCity] = useState("");
-    // const [phone, setPhone] = useState("");
-    // const [poAddress, setPoAddress] = useState("");
-    // const [prAddress, setPrAddress] = useState("");
-    // const [email, setEmail] = useState("");
     
+    const [eError, setEError] = useState('');
 
     function handleStdName(event){
         setStdName(event.target.value);
@@ -59,14 +48,13 @@ function PersonalInfo({
         if (inputValue.length > 13) {
             inputValue = inputValue.slice(0, 13) + '-' + inputValue.slice(13);
         }
-        if (inputValue.length > 15) {
+        if (inputValue.length > 14) {
             inputValue = inputValue.slice(0, 15);
             document.querySelector('.warning-stdCNIC').style.display = 'none'; 
+            document.querySelector('.std-cnic-tag').style.color = 'black';
         }
         
         setStdCNIC(inputValue);
-        document.querySelector('.std-cnic-tag').style.color = 'black';
-        
     }
 
     function handleGender(event){
@@ -75,7 +63,10 @@ function PersonalInfo({
     }
 
     function handleDob(event){
-        setDob(event.target.value);
+        const inputDOB = event.target.value;
+        const formatedDOB = dayjs(event.target.value).format('DD-MM-YYYY');
+        setDob(formatedDOB);
+        document.querySelector('.dob-input').value = inputDOB;
         document.querySelector('.dob-tag').style.color = 'black';
     }
 
@@ -95,8 +86,29 @@ function PersonalInfo({
     }
 
     function handlePhone(event){
-        setPhone(event.target.value);
-        document.querySelector('.phone-tag').style.color = 'black';
+        let inputValue = event.target.value.replace(/\D/g, ''); 
+        if(inputValue.length > 0 && inputValue[0] !== '0' ){
+            document.querySelector('.warning-phone-03').style.display = 'inline';
+            inputValue = inputValue.slice(0, 1);
+        }
+        if(inputValue.length > 1 && inputValue[1] !== '3'){
+            document.querySelector('.warning-phone-03').style.display = 'inline';
+            inputValue = inputValue.slice(0, 2);
+        }
+        if(inputValue[1] === '3'){
+            document.querySelector('.warning-phone-03').style.display = 'none';
+        }
+        if (inputValue.length > 4) {
+            inputValue = inputValue.slice(0, 4) + '-' + inputValue.slice(4);
+        }
+        if (inputValue.length > 11) {
+            inputValue = inputValue.slice(0, 12);
+            document.querySelector('.phone-tag').style.color = 'black';
+            document.querySelector('.warning-phone').style.display = 'none'; 
+        }
+
+        setPhone(inputValue);
+        
     }
 
     function handlePoAddress(event){
@@ -111,8 +123,34 @@ function PersonalInfo({
 
     function handleEmail(event){
         setEmail(event.target.value);
+        document.querySelector('.email-tag').style.color = 'black';
+        setEError('');
     }
 
+    function halfFilledWarning(){
+        
+       if(stdCNIC.length < 15){
+            window.scrollTo({
+                top: 60, 
+                behavior: "smooth",
+            });
+            document.querySelector('.warning-stdCNIC').style.display = 'inline';
+        }
+        else if(phone[0] !== '0' || phone[1] !== '3'){
+            window.scrollTo({
+                top: document.body.scrollHeight, 
+                behavior: "smooth",
+            });
+            document.querySelector('.warning-phone-03').style.display = 'inline';
+        }
+        else if(phone.length < 12){
+            window.scrollTo({
+                top: document.body.scrollHeight, 
+                behavior: "smooth",
+            });
+            document.querySelector('.warning-phone').style.display = 'inline';
+        }
+    }
     
     function previousPage(){
             document.querySelector('.ad-info-btn-title').style.opacity = 1;
@@ -122,6 +160,7 @@ function PersonalInfo({
     }
     function nextPage(){
         const errorsWarning = [];
+        const emailWarning = [];
         if (stdName.trim() === "") {
             errorsWarning.push("Student Name");
             document.querySelector('.std-name-tag').style.color = 'red';
@@ -167,6 +206,17 @@ function PersonalInfo({
             document.querySelector('.pr-ad-tag').style.color = 'red';
         };
 
+        if(email.trim() !== ""){
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                setEError("Please enter a valid email address. like 'someone@someone.com'");
+                emailWarning.push("Please enter a valid email address. like 'someone@someone.com'");
+                document.querySelector('.email-tag').style.color = 'red';
+            } else {
+                setEError('');
+            }
+            
+        }
 
         if (errorsWarning.length > 0) {
             document.querySelector('.pr-warning-container').style.display = 'flex';
@@ -175,22 +225,16 @@ function PersonalInfo({
                 top: 0,
                 behavior: "smooth",
             });
+        }else if (errorsWarning.length === 0 && emailWarning.length > 0) {
+            document.querySelector('.pr-warning-container').style.display = 'flex';
+            document.querySelector('.pr-warning-text').innerHTML = `<strong>${emailWarning}</strong>`;
+            window.scrollTo({
+                top: document.body.scrollHeight, 
+                behavior: "smooth",
+            });
         }else{
-            if(phone.length < 11){
-                console.log('less than 12');
-                window.scrollTo({
-                    top: document.body.scrollHeight, 
-                    behavior: "smooth",
-                });
-                document.querySelector('.warning-phone').style.display = 'inline';
-            }
-            else if(stdCNIC.length < 15){
-                console.log('less than 15');
-                window.scrollTo({
-                    top: 60, 
-                    behavior: "smooth",
-                });
-                document.querySelector('.warning-stdCNIC').style.display = 'inline';
+            if(phone.length < 12 || stdCNIC.length < 15 || ((phone[0] !== '0' || phone[1] !== '3'))){
+                halfFilledWarning();
             }
             else{
                 document.querySelector('.ed-info-btn-title').style.opacity = 1;
@@ -201,16 +245,14 @@ function PersonalInfo({
                     top: 0,
                     behavior: "smooth",
                 });
-            }
-            
-            
-            
+            }   
         }  
     }
 
     function removeWarning(){
         document.querySelector('.pr-warning-container').style.display = 'none';
     }
+
 
     return(
         <div className='info-container'>
@@ -238,9 +280,8 @@ function PersonalInfo({
                 }}
                 placeholder='e.g. Muhammad Shoaib' onChange={handleStdFName} />
 
-            <p className='info-tags std-cnic-tag'>Student CNIC <span className='star'>*</span></p>
+            <p className='info-tags std-cnic-tag'>Student CNIC <span className='star'>*</span> <span className='warning-stdCNIC'>(Student CNIC must be, <strong>13</strong> digits)</span></p>
             <input className='info-input-tags' type="text" value={stdCNIC} placeholder='e.g. 61101-1234569-7' onChange={handleCNIC}/>
-            
             <p className='info-tags gender-tag'>Gender <span className='star'>*</span></p>
             <label className='radio-label'>
                 <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGender}/>
@@ -253,8 +294,7 @@ function PersonalInfo({
             </label>
             
             <p className='info-tags dob-tag'>Date of Birth <span className='star'>*</span></p>
-            <input className='info-input-tags dob-input' type="date" value={dob} onChange={handleDob}/>
-            
+            <input className='info-input-tags dob-input' type="date" onChange={handleDob}/>
             <p className='info-tags prov-tag'>Province <span className='star'>*</span></p>
             <select value={province} className='dropdown-menu' onChange={handleProvince}>
                 <option value="">Select Province</option>
@@ -287,25 +327,15 @@ function PersonalInfo({
             <textarea className='info-input-tags' type="text" value={poAddress} placeholder='e.g. House # 10, Street 9, Block A Karachi' onChange={handlePoAddress}/>
             <p className='info-tags pr-ad-tag'>Permanent Address <span className='star'>*</span></p>
             <textarea className='info-input-tags' type="text" value={prAddress} placeholder='e.g. House # 10, Street 9, Block A Karachi' onChange={handlePrAddress}/>
-            <p className='info-tags phone-tag'>Phone No. <span className='star'>*</span> <span className='warning-phone'>(Phone No. must be, 11 digits)</span></p>
+            <p className='info-tags phone-tag'>Phone No. <span className='star'>*</span> 
+                <span className='warning-phone'>(Phone No. must have <strong>11</strong> digits)</span>
+                <span className='warning-phone-03'>(Phone No. must start with <strong>03</strong>)</span>
+            </p>
             <input className='info-input-tags' type="text" value={phone} placeholder='e.g. 03123456789' 
-            onKeyDown={(event) => { 
-                if (!/[0-9]/.test(event.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key)
-                ) {
-                    event.preventDefault();
-                }
-                if (event.target.value.length >= 11 && 
-                    !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(event.key)
-                ) {
-                    event.preventDefault();
-                    document.querySelector('.warning-phone').style.display = 'none';
-                }
-                
-            }}
             onChange={handlePhone}/>
-            <p className='info-tags'>Email</p>
-            <input className='info-input-tags' type="email" value={email} 
-                pattern="^[^@]+@[^@]+\.[^@]+$" 
+            
+            <p className='info-tags email-tag'>Email</p>
+            <input className='info-input-tags' type="email" value={email}
                 placeholder='example@example.com' onChange={handleEmail}/>
             <div className='page-navigation-btns'>
                 <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>

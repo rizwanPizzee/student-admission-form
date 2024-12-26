@@ -107,6 +107,11 @@ hr {
     z-index: 1;
 }
 
+.pr-warning-container {
+    position: fixed;
+    margin-top: 70px;
+}
+
 .inner-warning-container,
 .pr-inner-warning-container,
 .ed-inner-warning-container,
@@ -208,14 +213,16 @@ hr {
 
 .star,
 .warning-phone,
-.warning-stdCNIC {
+.warning-stdCNIC,
+.warning-phone-03 {
     color: red;
     position: absolute;
     margin-left: 3px;
 }
 
 .warning-phone,
-.warning-stdCNIC {
+.warning-stdCNIC,
+.warning-phone-03 {
     margin-left: 12px;
     font-size: 16px;
     top: 4px;
@@ -246,13 +253,14 @@ hr {
     box-shadow: 0px 0px 5px rgba(112, 3, 255, 0.76);
 }
 
-
+.add-edu,
 .page-navigation-btns {
     margin-top: 60px;
     display: flex;
     justify-content: space-between;
 }
 
+.add-edu,
 .page-navigation-btns button {
     font-size: 18px;
     font-weight: 700;
@@ -266,10 +274,12 @@ hr {
     transition: all 0.15s ease;
 }
 
+.add-edu:hover,
 .page-navigation-btns button:hover {
     background-color: #813dda;
 }
 
+.add-edu:active,
 .page-navigation-btns button:active {
     transform: scale(0.98);
 }
@@ -277,6 +287,15 @@ hr {
 .page-navigation-btns button:first-child {
     margin-right: 100px;
 }
+
+.add-edu {
+    margin: 20px 0px;
+}
+
+.add-div-edu {
+    position: relative;
+}
+
 
 .arrow-tag {
     font-size: 23px;
@@ -330,11 +349,11 @@ textarea {
 }
 
 .preview-img {
-    width: 15%;
-    height: 15%;
+    width: 20%;
+    height: 20%;
     margin-top: 10px;
+    outline: 1px solid gray;
 }
-
 
 
 .ad-details {
@@ -345,28 +364,89 @@ textarea {
 .pr-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
 }
 
+.ed-details-edu-tab,
 .ed-details {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 220px 100px 130px 1fr;
+    grid-template-columns: 40px 84px 160px 120px 130px 100px 130px 120px;
     overflow-x: auto;
     gap: 10px;
     scrollbar-color: #888 #eee;
 }
 
+.ed-details-out {
+    display: grid;
+    grid-template-columns: 84px 160px 120px 130px 100px 130px 120px;
+    overflow-x: auto;
+    gap: 10px;
+    scrollbar-color: #888 #eee;
+}
+
+.remove-edu-div {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.remove-edu {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    transition: all 0.15s ease;
+}
+
+.tooltip-add-edu,
+.tooltip-del {
+    position: absolute;
+    top: -30px;
+    white-space: nowrap;
+    background-color: #7003ff;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.5);
+    transform-origin: left;
+    transition: all 0.25s ease;
+}
+
+
+.remove-edu:hover {
+    opacity: 0.75;
+}
+
+.remove-edu:active {
+    transform: scale(0.92);
+
+}
+
+.add-edu:hover+.tooltip-add-edu,
+.remove-edu:hover+.tooltip-del {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.ed-details-edu-tab div,
 .ed-details div {
     word-wrap: break-word;
     white-space: normal;
-    text-overflow: ellipsis;
 }
 
 
 .ad-details div,
 .pr-details div,
-.ed-details div {
+.ed-details div,
+.ed-details-edu-tab div {
     font-size: 1rem;
     padding: 10px 0px;
+}
+
+.ed-details-edu-tab {
+    display: none;
 }
 
 
@@ -398,15 +478,45 @@ textarea {
     margin: 20px;
     background-color: rgb(0, 89, 255);
     border-radius: 5px;
+    object-fit: cover;
 }
 
-
-
-@media (max-width: 1368px) {
-    .info-container {
-        width: 70%;
-    }
+.print-btn-container {
+    justify-content: space-evenly;
 }
+
+textarea {
+    font-family: Arial;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    background-color: #7003ff;
+    color: white;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.15s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #9a4eff;
+    color: rgb(253, 253, 253);
+}
+
+.custom-file-upload:active {
+    background-color: #372153;
+    color: rgb(253, 253, 253);
+}
+
+.file-selc {
+    color: rgb(102, 3, 3);
+}
+
+@media (max-width: 1368px) {}
 
 @media (max-width: 1030px) {
 
@@ -468,6 +578,7 @@ textarea {
         font-size: 1.6rem;
     }
 
+    .ed-details-edu-tab div,
     .ed-details div {
         font-size: 11px;
     }
@@ -496,6 +607,7 @@ textarea {
         font-size: 1.4rem;
     }
 
+    .ed-details-edu-tab div,
     .ed-details div {
         font-size: 10px;
     }
@@ -521,13 +633,14 @@ textarea {
     }
 
     header h1 {
-        font-size: 20vw;
+        font-size: 7vw;
     }
 
     .info-container h1 {
-        font-size: 1.4rem;
+        font-size: 6vw;
     }
 
+    .ed-details-edu-tab div,
     .ed-details div {
         font-size: 9px;
     }

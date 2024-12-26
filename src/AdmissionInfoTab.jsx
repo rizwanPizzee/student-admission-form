@@ -12,10 +12,7 @@ function AdmissionInfo({
     shift,
     setShift,
 }){
-    // const [department,setDepartment] = useState("");
-    // const [program, setProgram] = useState("");
-    // const [semester, setSemester] = useState("");
-    // const [shift, setShift] = useState("");
+    
     
     
     function handleDepartment(event){
@@ -38,9 +35,7 @@ function AdmissionInfo({
     }
     
     function nextPage(){
-        // if(department.trim() === "" && program.trim() === "" && semester.trim() === "" && shift.trim() === ""){
-        //     alert("Enter All the fields");
-        // }
+        
         const errorsWarning = [];
         if (department.trim() === "") {
             errorsWarning.push("Department");
@@ -91,8 +86,8 @@ function AdmissionInfo({
                 <option value="">Select Department</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Software Engineering">Software Engineering</option>
-                <option value="BBA">BBA</option>
-                <option value="Artificial Intelegience">Artificial Intelegience</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Aritificial Intelligence">Aritificial Intelligence</option>
                 <option value="Electrical Engineering">Electrical Engineering</option>
                 <option value="English">English</option>
                 <option value="Islamic Studies">Islamic Studies</option>
@@ -137,8 +132,6 @@ function AdmissionInfo({
                 </div>
             </div>
 
-            {/* <p className='info-tags'>Full Name</p>
-            <input className='info-input-tags' type="text" /> */}
             
         </div>
     );

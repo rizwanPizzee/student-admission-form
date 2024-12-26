@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 function DocumentTab({stfileData,
     setSTFileData
  }){
-    // const [stfileData, setSTFileData] = useState(null); 
+    
     const [stfileType, setSTFileType] = useState("");
     const [stCNICfileData, setSTCNICFileData] = useState(null); 
     const [stCNICfileType, setSTCNICFileType] = useState("");
@@ -24,10 +24,12 @@ function DocumentTab({stfileData,
             fileReader.onload = (e) => {
                 setFileData(e.target.result); 
                 setFileType(file.type); 
+                
             };
 
             if (file.type.startsWith("image/")) {
                 fileReader.readAsDataURL(file);
+                document.querySelector('.ssc-cer-tag').style.color = 'black';
             } else if (file.type.startsWith("text/")) {
                 fileReader.readAsText(file); 
             } else {
@@ -48,6 +50,7 @@ function DocumentTab({stfileData,
 
             if (file.type.startsWith("image/")) {
                 fileReader.readAsDataURL(file);
+                document.querySelector('.pic-tag').style.color = 'black';
             } else if (file.type.startsWith("text/")) {
                 fileReader.readAsText(file); 
             } else {
@@ -68,6 +71,7 @@ function DocumentTab({stfileData,
 
             if (file.type.startsWith("image/")) {
                 fileReader.readAsDataURL(file);
+                document.querySelector('.cnic-b-tag').style.color = 'black';
             } else if (file.type.startsWith("text/")) {
                 fileReader.readAsText(file); 
             } else {
@@ -88,6 +92,7 @@ function DocumentTab({stfileData,
 
             if (file.type.startsWith("image/")) {
                 fileReader.readAsDataURL(file);
+                document.querySelector('.hssc-cer-tag').style.color = 'black';
             } else if (file.type.startsWith("text/")) {
                 fileReader.readAsText(file); 
             } else {
@@ -146,10 +151,22 @@ function DocumentTab({stfileData,
     }
     function nextPage(){
         const errorsWarning = [];
-        if (stfileData === null) errorsWarning.push("Student Picture");
-        if (stCNICfileData === null) errorsWarning.push("Student CNIC/B-Form");
-        if (fileData === null) errorsWarning.push("SSC Certificate");
-        if (hsscfileData === null) errorsWarning.push("HSSC Certificate");
+        if (stfileData === null) {
+            errorsWarning.push("Student Picture");
+            document.querySelector('.pic-tag').style.color = 'red';
+        };
+        if (stCNICfileData === null) {
+            errorsWarning.push("Student CNIC/B-Form");
+            document.querySelector('.cnic-b-tag').style.color = 'red';
+        };
+        if (fileData === null) {
+            errorsWarning.push("SSC Certificate");
+            document.querySelector('.ssc-cer-tag').style.color = 'red';
+        };
+        if (hsscfileData === null) {
+            errorsWarning.push("HSSC Certificate");
+            document.querySelector('.hssc-cer-tag').style.color = 'red';
+        };
         
         
 
@@ -191,23 +208,30 @@ function DocumentTab({stfileData,
                 <div onClick={nextPage}><span className='arrow-tag'>&#x203A;</span></div>
             </div>
             <hr />
-            <p className='info-tags'>Student Picture</p>
-            <input type="file" onChange={handleSTFileChange} />
+            
+            <p className='info-tags pic-tag'>Student Picture <span className='star'>*</span></p>
+            <label htmlFor="file-upload1" className="custom-file-upload">
+                Upload Student Pic
+            </label>
+            <input id='file-upload1' type="file" onChange={handleSTFileChange} />
             <div>
                 {stfileData ? (
                     stfileType.startsWith("image/") ? (
-                        <img className='preview-img' src={stfileData} alt="Preview"/>
+                        <img className='preview-img' src={stfileData} alt="Preview" />
                     ) : stfileType.startsWith("text/") ? (
                         <pre >{stfileData}</pre>
                     ) : (
                         <p>File type not supported for preview.</p>
                     )
                 ) : (
-                    <p>No SSC file selected</p>
+                    <p className='file-selc'>No Student Picture selected</p>
                 )}
             </div>
-            <p className='info-tags'>Student CNIC/B-Form</p>
-            <input type="file" onChange={handleSTCNICFileChange} />
+            <p className='info-tags cnic-b-tag'>Student CNIC/B-Form <span className='star'>*</span></p>
+            <label htmlFor="file-upload2" className="custom-file-upload">
+                Upload Student CNIC/B-Form
+            </label>
+            <input id='file-upload2' type="file" onChange={handleSTCNICFileChange} />
             <div>
                 {stCNICfileData ? (
                     stCNICfileType.startsWith("image/") ? (
@@ -218,11 +242,14 @@ function DocumentTab({stfileData,
                         <p>File type not supported for preview.</p>
                     )
                 ) : (
-                    <p>No SSC file selected</p>
+                    <p className='file-selc'>No CNIC/B-Form file selected</p>
                 )}
             </div>
-            <p className='info-tags'>SSC Certificate</p>
-            <input type="file" onChange={handleFileChange} />
+            <p className='info-tags ssc-cer-tag'>SSC Certificate <span className='star'>*</span></p>
+            <label htmlFor="file-upload3" className="custom-file-upload">
+                Upload SSC Certificate
+            </label>
+            <input id='file-upload3' type="file" onChange={handleFileChange} />
             <div>
                 {fileData ? (
                     fileType.startsWith("image/") ? (
@@ -233,11 +260,14 @@ function DocumentTab({stfileData,
                         <p>File type not supported for preview.</p>
                     )
                 ) : (
-                    <p>No SSC file selected</p>
+                    <p className='file-selc'>No SSC file selected</p>
                 )}
             </div>
-            <p className='info-tags'>HSSC Certificate</p>
-            <input type="file" onChange={handleHSSCFileChange} />
+            <p className='info-tags hssc-cer-tag'>HSSC Certificate <span className='star'>*</span></p>
+            <label htmlFor="file-upload4" className="custom-file-upload">
+                Upload HSSC Certificate
+            </label>
+            <input id='file-upload4' type="file" onChange={handleHSSCFileChange} />
             <div>
                 {hsscfileData ? (
                     hsscfileType.startsWith("image/") ? (
@@ -248,11 +278,14 @@ function DocumentTab({stfileData,
                         <p>File type not supported for preview.</p>
                     )
                 ) : (
-                    <p>No HSSC file selected</p>
+                    <p className='file-selc'>No HSSC file selected</p>
                 )}
             </div>
             <p className='info-tags'>Graduation Certificate</p>
-            <input type="file" onChange={handleGRFileChange} />
+            <label htmlFor="file-upload5" className="custom-file-upload">
+                Upload Graduation Certificates
+            </label>
+            <input id='file-upload5' type="file" onChange={handleGRFileChange} />
             <div>
                 {grfileData ? (
                     grfileType.startsWith("image/") ? (
@@ -263,12 +296,15 @@ function DocumentTab({stfileData,
                         <p>File type not supported for preview.</p>
                     )
                 ) : (
-                    <p>No Graduation file selected</p>
+                    <p className='file-selc'>No Graduation file selected</p>
                 )}
             </div>
 
             <p className='info-tags'>Other Certificate</p>
-            <input type="file" onChange={handleOTFileChange} />
+            <label htmlFor="file-upload6" className="custom-file-upload">
+                Upload Other Certificates
+            </label>
+            <input id='file-upload6' type="file" onChange={handleOTFileChange} />
             <div>
                 {otfileData ? (
                     otfileType.startsWith("image/") ? (
@@ -279,7 +315,7 @@ function DocumentTab({stfileData,
                         <p>File type not supported for preview.</p>
                     )
                 ) : (
-                    <p>No file selected</p>
+                    <p className='file-selc'>No file selected</p>
                 )}
             </div>
             
