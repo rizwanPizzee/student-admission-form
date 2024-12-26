@@ -67,6 +67,11 @@ header h1 {
     align-items: center;
 }
 
+.top-next-arrow-div,
+.top-prev-arrow-div {
+    position: relative;
+}
+
 .info-container-header .arrow-tag {
     color: #6102dd;
     font-size: 44px;
@@ -260,6 +265,12 @@ hr {
     justify-content: space-between;
 }
 
+.page-navigation-btns,
+.div-nav-next,
+.div-nav-prev {
+    position: relative;
+}
+
 .add-edu,
 .page-navigation-btns button {
     font-size: 18px;
@@ -284,9 +295,7 @@ hr {
     transform: scale(0.98);
 }
 
-.page-navigation-btns button:first-child {
-    margin-right: 100px;
-}
+
 
 .add-edu {
     margin: 20px 0px;
@@ -399,13 +408,18 @@ textarea {
 }
 
 .tooltip-add-edu,
-.tooltip-del {
+.tooltip-del,
+.tooltip-next,
+.tooltip-prev,
+.tooltip-top-next,
+.tooltip-top-back {
     position: absolute;
-    top: -30px;
+    top: -35px;
+    left: 0;
     white-space: nowrap;
     background-color: #7003ff;
     color: white;
-    padding: 3px 5px;
+    padding: 5px 8px;
     border-radius: 6px;
     opacity: 0;
     pointer-events: none;
@@ -414,6 +428,13 @@ textarea {
     transition: all 0.25s ease;
 }
 
+.tooltip-top-next,
+.tooltip-top-back {
+    top: auto;
+    left: 0;
+    transform-origin: center;
+    bottom: -45px;
+}
 
 .remove-edu:hover {
     opacity: 0.75;
@@ -425,7 +446,11 @@ textarea {
 }
 
 .add-edu:hover+.tooltip-add-edu,
-.remove-edu:hover+.tooltip-del {
+.remove-edu:hover+.tooltip-del,
+.page-navigation-btns button:hover+.tooltip-next,
+.page-navigation-btns button:hover+.tooltip-prev,
+.arrow-tag-top-next:hover+.tooltip-top-next,
+.arrow-tag-top-back:hover+.tooltip-top-back {
     transform: scale(1);
     opacity: 1;
 }
@@ -516,7 +541,6 @@ input[type="file"] {
     color: rgb(102, 3, 3);
 }
 
-@media (max-width: 1368px) {}
 
 @media (max-width: 1030px) {
 

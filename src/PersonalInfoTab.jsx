@@ -257,9 +257,15 @@ function PersonalInfo({
     return(
         <div className='info-container'>
             <div className='info-container-header'>
-                <div onClick={previousPage}><span className='arrow-tag'>&#x2039;</span></div>
+                <div className='top-prev-arrow-div' onClick={previousPage}>
+                    <span className='arrow-tag arrow-tag-top-back'>&#x2039;</span>
+                    <span className='tooltip-top-back'>Back</span>
+                </div>
                 <h1>PERSONAL INFO</h1>
-                <div onClick={nextPage}><span className='arrow-tag'>&#x203A;</span></div>
+                <div className='top-next-arrow-div' onClick={nextPage}>
+                    <span className='arrow-tag arrow-tag-top-next'>&#x203A;</span>
+                    <span className='tooltip-top-next'>Next</span>
+                </div>
             </div>
             <hr />
             <p className='info-tags std-name-tag'>Student Name <span className='star'>*</span></p>
@@ -338,8 +344,14 @@ function PersonalInfo({
             <input className='info-input-tags' type="email" value={email}
                 placeholder='example@example.com' onChange={handleEmail}/>
             <div className='page-navigation-btns'>
-                <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>
-                <button onClick={nextPage}>Next <span className='arrow-tag'>&#x203A;</span></button>
+                <div className='div-nav-prev'>
+                    <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>
+                    <label className='tooltip-prev'>Go to Admission Info Page</label>
+                </div>
+                <div className='div-nav-next'>
+                    <button onClick={nextPage}>Next <span className='arrow-tag'>&#x203A;</span></button>
+                    <label className='tooltip-next'>Go to Educational Info Page</label>
+                </div>  
             </div>
             <div className='pr-warning-container' onClick={removeWarning}>
                 <div className='pr-inner-warning-container'

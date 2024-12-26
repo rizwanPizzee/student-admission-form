@@ -295,9 +295,15 @@ function EducationInfo({
     return(
         <div className='info-container'>
             <div className='info-container-header'>
-                <div onClick={previousPage}><span className='arrow-tag'>&#x2039;</span></div>
+                <div className='top-prev-arrow-div' onClick={previousPage}>
+                    <span className='arrow-tag arrow-tag-top-back'>&#x2039;</span>
+                    <span className='tooltip-top-back'>Back</span>
+                </div>
                 <h1>EDUCATIONAL INFO</h1>
-                <div onClick={nextPage}><span className='arrow-tag'>&#x203A;</span></div>
+                <div className='top-next-arrow-div' onClick={nextPage}>
+                    <span className='arrow-tag arrow-tag-top-next'>&#x203A;</span>
+                    <span className='tooltip-top-next'>Next</span>
+                </div>
             </div>
             <hr />
             <div className='ed-info-container'>
@@ -416,8 +422,14 @@ function EducationInfo({
             </div>
             
             <div className='page-navigation-btns'>
-                <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>
-                <button onClick={nextPage}>Next <span className='arrow-tag'>&#x203A;</span></button>
+                <div className='div-nav-prev'>
+                    <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>
+                    <label className='tooltip-prev'>Go to Personal Info Page</label>
+                </div>
+                <div className='div-nav-next'>
+                    <button onClick={nextPage}>Next <span className='arrow-tag'>&#x203A;</span></button>
+                    <label className='tooltip-next'>Go to Documents Page</label>
+                </div> 
             </div>
 
             <div className='ed-warning-container'>

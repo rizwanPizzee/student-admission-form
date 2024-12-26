@@ -203,9 +203,15 @@ function DocumentTab({stfileData,
     return(
         <div className='info-container'>
             <div className='info-container-header'>
-                <div onClick={previousPage}><span className='arrow-tag'>&#x2039;</span></div>
+            <div className='top-prev-arrow-div' onClick={previousPage}>
+                    <span className='arrow-tag arrow-tag-top-back'>&#x2039;</span>
+                    <span className='tooltip-top-back'>Back</span>
+                </div>
                 <h1>DOCUMENTS</h1>
-                <div onClick={nextPage}><span className='arrow-tag'>&#x203A;</span></div>
+                <div className='top-next-arrow-div' onClick={nextPage}>
+                    <span className='arrow-tag arrow-tag-top-next'>&#x203A;</span>
+                    <span className='tooltip-top-next'>Next</span>
+                </div>            
             </div>
             <hr />
             
@@ -320,8 +326,14 @@ function DocumentTab({stfileData,
             </div>
             
             <div className='page-navigation-btns'>
-                <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>
-                <button onClick={nextPage}>Submit <span className='arrow-tag'>&#x203A;</span></button>
+                <div className='div-nav-prev'>
+                    <button onClick={previousPage}><span className='arrow-tag'>&#x2039;</span> Previous</button>
+                    <label className='tooltip-prev'>Go to Personal Info Page</label>
+                </div>
+                <div className='div-nav-next'>
+                    <button onClick={nextPage}>Submit<span className='arrow-tag'>&#x203A;</span></button>
+                    <label className='tooltip-next'>Click To Submit Form</label>
+                </div> 
             </div>
             <div className='doc-warning-container'>
                 <div className='doc-inner-warning-container'>

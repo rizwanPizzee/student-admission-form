@@ -78,7 +78,10 @@ function AdmissionInfo({
             <div className='info-container-header'>
                 <div><span></span></div>
                 <h1>ADMISSION INFO</h1>
-                <div onClick={nextPage}><span className='arrow-tag'>&#x203A;</span></div>
+                <div className='top-next-arrow-div' onClick={nextPage}>
+                    <span className='arrow-tag arrow-tag-top-next'>&#x203A;</span>
+                    <span className='tooltip-top-next'>Next</span>
+                </div>
             </div>
             <hr />
             <p className='info-tags dept-tag'>Department <span className='star'>*</span></p>
@@ -121,7 +124,10 @@ function AdmissionInfo({
                 Evening
             </label>
             <div className='page-navigation-btns'>
-                <button onClick={nextPage}>Next <span className='arrow-tag'>&#x203A;</span></button>
+            <div className='div-nav-next'>
+                    <button onClick={nextPage}>Next <span className='arrow-tag'>&#x203A;</span></button>
+                    <label className='tooltip-next'>Go to Personal Info Page</label>
+                </div>    
             </div>
             
             <div className='warning-container'>
